@@ -14,7 +14,7 @@ class Product:
         # Инициализация класса, передача значений атрибутов класса.
         self.name = name
         self.description = description
-        self.__price = price
+        self.__price = price if price > 0 else ValueError("Цена не должна быть нулевая или отрицательная")
         self.quantity = quantity
 
     # Метод создающий новый объект класса
