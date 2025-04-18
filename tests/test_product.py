@@ -13,3 +13,25 @@ def test_product_init(product_init) -> None:
     assert product_init.description == "Description"
     assert product_init.price == 100.0
     assert product_init.quantity == 10
+
+
+def test_new_product() -> None:
+    product_test = {"name": "iPhone 15", "description": "128GB, Черный", "price": 210000.0, "quantity": 8}
+
+    product = Product.new_product(product_test)
+    assert product.name == "iPhone 15"
+    assert product.description == "128GB, Черный"
+    assert product.price == 210000.0
+    assert product.quantity == 8
+
+
+def test_price_setter(product_init):
+
+    product_init.price = 500
+    assert product_init.price == 500.0
+
+    with pytest.raises(ValueError, match="Цена не должна быть нулевая или отрицательная"):
+        product_init.price = 0
+
+    with pytest.raises(ValueError, match="Цена не должна быть нулевая или отрицательная"):
+        product_init.price = -1
