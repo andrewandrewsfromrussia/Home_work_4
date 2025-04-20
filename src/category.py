@@ -1,3 +1,6 @@
+from tests.test_product import product_init
+
+
 class Category:
     """
     Описание класса.
@@ -23,7 +26,8 @@ class Category:
 
     # Магический метод
     def __str__(self):
-        return f"{self.name}, количество продуктов: {self.product_count} шт."
+        product_c = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {product_c} шт."
 
     # Геттер для приватного атрибута класса
     @property
