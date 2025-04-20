@@ -8,6 +8,11 @@ def product_init():
     return Product("Name", "Description", 100.0, 10)
 
 
+@pytest.fixture
+def product_add_fixture():
+    return Product("Name2", "Description2", 80.0, 4)
+
+
 def test_product_init(product_init) -> None:
     assert product_init.name == "Name"
     assert product_init.description == "Description"
@@ -35,3 +40,11 @@ def test_price_setter(product_init):
 
     with pytest.raises(ValueError, match="Цена не должна быть нулевая или отрицательная"):
         product_init.price = -1
+
+
+def test_str_method(product_init) -> None:
+    assert str(product_init) == "Name, 100.0 руб. Остаток: 10 шт."
+
+
+def test_add_method(product_init, product_add_fixture) -> None:
+    assert product_init + product_add_fixture == 1320.0

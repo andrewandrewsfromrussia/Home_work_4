@@ -21,6 +21,10 @@ class Category:
         Category.category_count += 1
         Category.product_count += sum(product.quantity for product in products)
 
+    # Магический метод
+    def __str__(self):
+        return f"{self.name}, количество продуктов: {self.product_count} шт."
+
     # Геттер для приватного атрибута класса
     @property
     def products(self):
