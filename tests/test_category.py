@@ -17,22 +17,42 @@ def category():
     return category
 
 
-# Тест работоспособности функции
-def test_product_init(category) -> None:
+# Тест инициализации функции
+def test_product_init_name(category) -> None:
     assert category.name == "Смартфоны"
+
+
+# Тест инициализации функции
+def test_product_init_description(category) -> None:
     assert category.description == (
         "Смартфоны, как средство не только коммуникации, "
         "но и получения дополнительных функций для удобства жизни"
     )
+
+
+# Тест инициализации функции
+def test_product_init_products(category) -> None:
     assert category.products == (
         "Iphone 15, 210000.0 руб. Остаток: 8 шт.\n"
         "Xiaomi Redmi Note 11, 11000.0 руб. Остаток: 14 шт."
     )
+
+
+# Тест инициализации функции
+def test_product_init_category_count(category) -> None:
+    category.category_count = 1
     assert category.category_count == 1
+
+
+# Тест инициализации функции
+def test_product_init_product_count(category) -> None:
     assert category.product_count == 22
 
+
+def test_product_init_product_count(category) -> None:
     # Обнулил счетчик (происходит накопление).
     Category.product_count = 0
+    assert Category.product_count == 0
 
 
 # Тест на добавление класса Product в список категорий и корректный подсчет продукта
@@ -47,7 +67,7 @@ def test_category_add_product(category) -> None:
     )
     assert category.product_count == 30
 
-
+# Тест на добавление неверного класса
 def test_category_add_non_product(category) -> None:
     product = {
         "name": "Кирпич печной",
