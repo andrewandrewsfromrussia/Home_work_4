@@ -1,4 +1,4 @@
-from tests.test_product import product_init
+from src.product import Product
 
 
 class Category:
@@ -38,6 +38,9 @@ class Category:
         )
 
     # Метод для добавления продукта в атрибут products
+    # update: добавлена проверка product на принадлежность к классу или подклассу
     def add_product(self, product):
+        if not isinstance(product, Product):
+            raise TypeError
         self.__products.append(product)
         Category.product_count += product.quantity

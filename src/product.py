@@ -21,6 +21,7 @@ class Product:
     def __str__(self):
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
+    # Магический метод add
     def __add__(self, other):
         return (self.__price * self.quantity) + (other.__price * other.quantity)
 
@@ -41,3 +42,54 @@ class Product:
             raise ValueError("Цена не должна быть нулевая или отрицательная")
 
         self.__price = new_price
+
+
+class Smartphone(Product):
+    """
+    Описание класса.
+    """
+
+    # Свойства класса.
+    efficiency: float
+    model: str
+    memory: int
+    color: str
+
+    # Переопределение метода инициализации с новыми атрибутами
+    def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+    # Переопределение метода класса
+    def __add__(self, other):
+        if type(other) is not Smartphone:
+            raise TypeError
+
+        return super().__add__(other)
+
+
+class LawnGrass(Product):
+    """
+    Описание класса.
+    """
+
+    country: str
+    germination_period: int
+    color: str
+
+    # Переопределение метода инициализации с новыми атрибутами
+    def __init__(self, name, description, price, quantity, country, germination_period, color):
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
+
+    # Переопределение метода класса
+    def __add__(self, other):
+        if type(other) is not LawnGrass:
+            raise TypeError
+
+        return super().__add__(other)
