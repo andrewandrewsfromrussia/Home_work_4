@@ -17,6 +17,13 @@ class Product:
         self.__price = price if price > 0 else ValueError("Цена не должна быть нулевая или отрицательная")
         self.quantity = quantity
 
+    # Магический метод str
+    def __str__(self):
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        return (self.__price * self.quantity) + (other.__price * other.quantity)
+
     # Метод создающий новый объект класса
     @classmethod
     def new_product(cls, product):
@@ -30,7 +37,7 @@ class Product:
     # Сеттер для изменения цены
     @price.setter
     def price(self, new_price):
-        if new_price > 0:
-            self.__price = new_price
-        else:
+        if new_price <= 0:
             raise ValueError("Цена не должна быть нулевая или отрицательная")
+
+        self.__price = new_price
