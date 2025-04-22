@@ -3,6 +3,11 @@ import pytest
 from src.category import Category
 from src.product import Product
 
+@pytest.fixture(autouse=True)
+def reset_category_counts():
+    Category.product_count = 0
+    Category.category_count = 0
+
 
 @pytest.fixture(scope="function")
 def category():

@@ -38,20 +38,21 @@ class BaseProduct(ABC):
         pass
 
 
-class MixinLog(ABC):
+class MixinLog:
     """
     Класс миксин.
     """
-    # Магический метод repr, определяющий строковое представление объекта
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+        print(f"{repr(self)}")
+
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
-
-    # Метод, выводящий в консоль сообщение с информацией о классе
-    def order_log(self):
-        return repr(self)
+        cls_name = self.__class__.__name__
+        return f"{cls_name}({self.name}, {self.description}, {self.price}, {self.quantity}"
 
 
-class Product(BaseProduct, MixinLog):
+class Product(MixinLog, BaseProduct):
     """
     Описание класса.
     """
@@ -71,6 +72,7 @@ class Product(BaseProduct, MixinLog):
             raise ValueError("Цена не должна быть нулевая или отрицательная")
         self.__price = price
         self.quantity = quantity
+        super().__init__(name, description, price, quantity)
 
     # Магический метод str
     def __str__(self):
