@@ -40,7 +40,7 @@ def test_product_init_products(category) -> None:
 
 # Тест инициализации функции
 def test_product_init_category_count(category) -> None:
-    category.category_count = 1
+    Category.category_count = 1
     assert category.category_count == 1
 
 
@@ -49,7 +49,7 @@ def test_product_init_product_count(category) -> None:
     assert category.product_count == 22
 
 
-def test_product_init_product_count(category) -> None:
+def test_product_init_product_count_zero(category) -> None:
     # Обнулил счетчик (происходит накопление).
     Category.product_count = 0
     assert Category.product_count == 0
@@ -66,6 +66,7 @@ def test_category_add_product(category) -> None:
         "Xiaomi Redmi Note 12, 31000.0 руб. Остаток: 8 шт."
     )
     assert category.product_count == 30
+
 
 # Тест на добавление неверного класса
 def test_category_add_non_product(category) -> None:

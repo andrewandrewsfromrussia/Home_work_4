@@ -148,3 +148,27 @@ def test_add_lawngrass_category(lawngrass_one_init, lawngrass_two_init) -> None:
 def test_add_sp_to_lg_category(smartphone_one_init, lawngrass_one_init) -> None:
     with pytest.raises(TypeError):
         smartphone_one_init + lawngrass_one_init
+
+
+# Тест класса MixinLog
+def test_mixin_log_with_product(product_one_init) -> None:
+    assert (product_one_init.order_log() ==
+            "Product("
+            "Xiaomi Redmi Note 11, 128GB, Pink Space, 11000.0, 14"
+            ")")
+
+
+# Тест класса MixinLog
+def test_mixin_log_with_smartphone(smartphone_one_init) -> None:
+    assert (smartphone_one_init.order_log() ==
+            "Smartphone("
+            "Xiaomi 13 Pro, Флагман с камерой Leica и мощным процессором Snapdragon 8 Gen 2, 79990.0, 8"
+            ")")
+
+
+# Тест класса MixinLog
+def test_mixin_log_with_lawngrass(lawngrass_one_init) -> None:
+    assert (lawngrass_one_init.order_log() ==
+            "LawnGrass("
+            "GreenLine Universal, Газонная трава для универсального применения, устойчива к вытаптыванию, 1290.0, 10"
+            ")")

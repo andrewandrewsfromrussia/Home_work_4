@@ -9,9 +9,12 @@ category.py:
 class Category
 
 product.py:
-class Category
-class Smartphone
-class LawnGrass
+class BaseProduct(ABC) - абстрактный класс
+class MixinLog - миксин класс
+class Product(BaseProduct, MixinLog)
+class Smartphone(Product, MixinLog)
+class LawnGrass(Product, MixinLog)
+
 
 tests directory:
 test directory for functional to product

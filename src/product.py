@@ -1,4 +1,57 @@
-class Product:
+from abc import ABC, abstractmethod
+
+
+class BaseProduct(ABC):
+    """
+    Абстрактный класс
+    """
+    name: str
+    description: str
+    _price: float
+    quantity: int
+
+    @abstractmethod
+    def __init__(self, name: str, description: str, price: float, quantity: int):
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
+    @classmethod
+    @abstractmethod
+    def new_product(cls, product):
+        pass
+
+    @property
+    @abstractmethod
+    def price(self):
+        pass
+
+    @price.setter
+    @abstractmethod
+    def price(self, new_price):
+        pass
+
+
+class MixinLog(ABC):
+    """
+    Класс миксин.
+    """
+    # Магический метод repr, определяющий строковое представление объекта
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
+
+    # Метод, выводящий в консоль сообщение с информацией о классе
+    def order_log(self):
+        return repr(self)
+
+
+class Product(BaseProduct, MixinLog):
     """
     Описание класса.
     """
@@ -14,7 +67,9 @@ class Product:
         # Инициализация класса, передача значений атрибутов класса.
         self.name = name
         self.description = description
-        self.__price = price if price > 0 else ValueError("Цена не должна быть нулевая или отрицательная")
+        if price <= 0:
+            raise ValueError("Цена не должна быть нулевая или отрицательная")
+        self.__price = price
         self.quantity = quantity
 
     # Магический метод str
@@ -44,7 +99,7 @@ class Product:
         self.__price = new_price
 
 
-class Smartphone(Product):
+class Smartphone(Product, MixinLog):
     """
     Описание класса.
     """
@@ -71,7 +126,7 @@ class Smartphone(Product):
         return super().__add__(other)
 
 
-class LawnGrass(Product):
+class LawnGrass(Product, MixinLog):
     """
     Описание класса.
     """
