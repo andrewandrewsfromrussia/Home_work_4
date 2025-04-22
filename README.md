@@ -10,6 +10,8 @@ class Category
 
 product.py:
 class Category
+class Smartphone
+class LawnGrass
 
 tests directory:
 test directory for functional to product
