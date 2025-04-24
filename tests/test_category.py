@@ -4,6 +4,12 @@ from src.category import Category
 from src.product import Product
 
 
+@pytest.fixture(autouse=True)
+def reset_category_counts():
+    Category.product_count = 0
+    Category.category_count = 0
+
+
 @pytest.fixture(scope="function")
 def category():
     product1 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
@@ -14,6 +20,17 @@ def category():
         "но и получения дополнительных функций для удобства жизни",
         [product1, product2],
     )
+    return category
+
+
+@pytest.fixture(scope="function")
+def empty_category():
+    category = Category(
+        "Ничего",
+        "Здесь абсолютно ничего нет",
+        []
+    )
+
     return category
 
 
@@ -40,7 +57,7 @@ def test_product_init_products(category) -> None:
 
 # Тест инициализации функции
 def test_product_init_category_count(category) -> None:
-    category.category_count = 1
+    Category.category_count = 1
     assert category.category_count == 1
 
 
@@ -49,7 +66,7 @@ def test_product_init_product_count(category) -> None:
     assert category.product_count == 22
 
 
-def test_product_init_product_count(category) -> None:
+def test_product_init_product_count_zero(category) -> None:
     # Обнулил счетчик (происходит накопление).
     Category.product_count = 0
     assert Category.product_count == 0
@@ -67,6 +84,7 @@ def test_category_add_product(category) -> None:
     )
     assert category.product_count == 30
 
+
 # Тест на добавление неверного класса
 def test_category_add_non_product(category) -> None:
     product = {
@@ -83,3 +101,13 @@ def test_category_add_non_product(category) -> None:
 # Тест метода str
 def test_category_str_product(category):
     assert str(category) == "Смартфоны, количество продуктов: 22 шт."
+
+
+# Test average_price method
+def test_average_price_sum(category):
+    assert category.middle_price() == 10045.45
+
+
+# Test ZeroDivisionError
+def test_average_price_empty_list(empty_category):
+    assert empty_category.middle_price() == 0
