@@ -105,7 +105,7 @@ def test_category_str_product(category):
 
 # Test average_price method
 def test_average_price_sum(category):
-    assert category.middle_price() == 83363.64
+    assert category.middle_price() == 10045.45
 
 
 # Test ZeroDivisionError

@@ -48,7 +48,7 @@ class Category:
     # Метод подсчета среднего ценника и обратки исключений
     def middle_price(self):
         try:
-            result = sum(product.price * product.quantity for product in self.__products) / Category.product_count
+            result = sum(product.price for product in self.__products) / Category.product_count
         except ZeroDivisionError:
             return 0
 
