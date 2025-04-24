@@ -3,6 +3,7 @@ import pytest
 from src.category import Category
 from src.product import Product
 
+
 @pytest.fixture(autouse=True)
 def reset_category_counts():
     Category.product_count = 0
@@ -19,6 +20,17 @@ def category():
         "но и получения дополнительных функций для удобства жизни",
         [product1, product2],
     )
+    return category
+
+
+@pytest.fixture(scope="function")
+def empty_category():
+    category = Category(
+        "Ничего",
+        "Здесь абсолютно ничего нет",
+        []
+    )
+
     return category
 
 
@@ -89,3 +101,13 @@ def test_category_add_non_product(category) -> None:
 # Тест метода str
 def test_category_str_product(category):
     assert str(category) == "Смартфоны, количество продуктов: 22 шт."
+
+
+# Test average_price method
+def test_average_price_sum(category):
+    assert category.middle_price() == 83363.64
+
+
+# Test ZeroDivisionError
+def test_average_price_empty_list(empty_category):
+    assert empty_category.middle_price() == 0

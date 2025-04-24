@@ -71,6 +71,8 @@ class Product(MixinLog, BaseProduct):
         if price <= 0:
             raise ValueError("Цена не должна быть нулевая или отрицательная")
         self.__price = price
+        if quantity <= 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         self.quantity = quantity
         super().__init__(name, description, price, quantity)
 

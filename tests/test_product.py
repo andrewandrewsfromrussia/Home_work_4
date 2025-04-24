@@ -107,6 +107,18 @@ def test_new_product() -> None:
     assert product.quantity == 10
 
 
+# Тест на обработку исключения ZeroDivisionError
+def test_new_product_by_zero_quantity() -> None:
+    product_test = {
+        "name": "iPhone 14",
+        "description": "Флагман от Apple с мощным процессором A15 Bionic",
+        "price": 89990.0,
+        "quantity": 0
+    }
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Product.new_product(product_test)
+
+
 # Тест сеттера изменения цены с положительным значением
 def test_positive_price_setter(product_one_init) -> None:
     product_one_init.price = 500
